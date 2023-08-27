@@ -13,6 +13,7 @@ export const ReporteRol = () => {
           <td>True</td>
           <td>Dato</td>
       </tr>
+      
   </tbody>
         </table></>
     )
