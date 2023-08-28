@@ -6,6 +6,9 @@ import { Rol } from './assets/Rol'
 import { ReporteRol } from './assets/ReportesRoles'
 import { Reservas } from './assets/Reservas'
 import { ReporteReservas } from './assets/ReporteReservas'
+import { Laboratorio } from './assets/laboratorio';
+
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -40,5 +43,10 @@ ReactDOM.createRoot(document.getElementById('Reservas')).render(
 ReactDOM.createRoot(document.getElementById('ReporteReservas')).render(
   <React.StrictMode>
     <ReporteReservas />
+  </React.StrictMode>
+)
+ReactDOM.createRoot(document.getElementById('Laboratorio')).render(
+  <React.StrictMode>
+    <Laboratorio />
   </React.StrictMode>
 )
