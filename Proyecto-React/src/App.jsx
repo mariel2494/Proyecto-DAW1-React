@@ -4,12 +4,13 @@ import {Laboratorio} from './componentes/Laboratorio'
 import {Reservas} from './componentes/Reservas'
 import {Rol} from './componentes/Rol'
 import {Usuario} from './componentes/Usuario'
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { Menu } from './componentes/Menu'
+import {Routes, Route} from 'react-router-dom'
 
 function App(){
   return(
     <>
-    <BrowserRouter>
+    <Menu/>
     <Routes>
     <Route path='/' element={ <Inicio />}  ></Route>
     <Route path='/horarios' element={ <Horarios />}  ></Route>
@@ -17,8 +18,7 @@ function App(){
     <Route path='/reservas' element={ <Reservas />}  ></Route>
     <Route path='/rol' element={ <Rol />}  ></Route>
     <Route path='/usuario' element={ <Usuario />}  ></Route>
-    </Routes>
-    </BrowserRouter>
+    </Routes> 
     </>
   )
 }
