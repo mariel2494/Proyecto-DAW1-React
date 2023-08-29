@@ -16,6 +16,18 @@ export const Laboratorio = () => {
         <button type="submit">Guardar</button>
       </form>
 
+      <table border="1">
+        <tr>
+          <th>Nombre</th>
+          <th>Activo</th>
+          <th>Fecha Desactivado</th>
+        </tr>
+        <tr>
+          <td>Nombre Ejemplo</td>
+          <td>✔️</td>
+          <td>2023-08-27</td>
+        </tr>
+      </table>
 
     </>
   )
