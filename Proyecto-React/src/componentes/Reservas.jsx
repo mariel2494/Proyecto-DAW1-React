@@ -38,7 +38,7 @@ export const Reservas = () => {
 
 
             <h1>ReporteReservas</h1>
-            <table>
+            <table border={1}>
                 <th>IdReserva</th>
                 <th>IdLab</th>
                 <th>IdHorario</th>

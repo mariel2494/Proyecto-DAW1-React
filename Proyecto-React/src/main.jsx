@@ -1,12 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Horarios } from './assets/Horarios'
-import { ReporteHorarios } from './assets/ReporteHorarios'
-import { Rol } from './assets/Rol'
-import { ReporteRol } from './assets/ReportesRoles'
-import { Reservas } from './assets/Reservas'
-import { ReporteReservas } from './assets/ReporteReservas'
-import { Laboratorio } from './assets/laboratorio'
+import { Horarios } from './componentes/Horarios'
+import { Rol } from './componentes/Rol'
+import { Reservas } from './componentes/Reservas'
+import { Laboratorio } from './componentes/Laboratorio'
 import { Usuario } from './componentes/Usuario';
 
 
