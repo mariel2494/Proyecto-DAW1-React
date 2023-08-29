@@ -1,5 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+
+/*
 import { Horarios } from './assets/Horarios'
 import { ReporteHorarios } from './assets/ReporteHorarios'
 import { Rol } from './assets/Rol'
@@ -8,9 +11,6 @@ import { Reservas } from './assets/Reservas'
 import { ReporteReservas } from './assets/ReporteReservas'
 import { Laboratorio } from './assets/laboratorio'
 import { Usuario } from './componentes/Usuario';
-
-
-
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -62,4 +62,12 @@ ReactDOM.createRoot(document.getElementById('ReporteUsuario')).render(
   <React.StrictMode>
     <ReporteUsuario />
   </React.StrictMode>
+)*/
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+ 
+      <App />
+  
+  </React.StrictMode>,
 )
