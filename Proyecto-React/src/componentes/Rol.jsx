@@ -3,11 +3,13 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+import Container from 'react-bootstrap/Container';
+import Table from 'react-bootstrap/Table';
 import React from 'react'
+
 export const Rol = () => {
   return (
-    <><container>
+    <><Container>
   <Row className="justify-content-md-center">
     <Col xs md='10'>
     <h3 className='text-center'>Rol</h3>
@@ -30,7 +32,7 @@ export const Rol = () => {
 
       <h3 className='text-center mb-5'>ReporteRol</h3>
 
-      <table class='table'>
+      <Table class='table'>
         <th>IdRol</th>
         <th>Nombre</th>
         <th>Activo</th>
@@ -43,13 +45,13 @@ export const Rol = () => {
             <td>30/08/2023  16:00:00</td>
           </tr>
         </tbody>
-      </table>
+      </Table>
     </Col>
  
   </Row>
 
 
-</container>
+</Container>
       
 
 
