@@ -7,14 +7,14 @@ import Navbar from 'react-bootstrap/Navbar';
 export const Menu = () => {
   return (
     <>
-<Navbar bg="info" data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
+<Navbar bg="info" data-bs-theme="dark" expand="lg" className="bg-body-tertiary mb-3">
       <Container>
         <Navbar.Brand href="inicio">Inicio</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="horarios">Horarios</Nav.Link>
-            <Nav.Link href="laboratorios">Laboratorios</Nav.Link>
+            <Nav.Link href="laboratorio">Laboratorio</Nav.Link>
             <Nav.Link href="reservas">Reservas</Nav.Link>
             <Nav.Link href="rol">Rol</Nav.Link>
             <Nav.Link href="usuario">Usuario</Nav.Link>

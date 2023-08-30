@@ -13,7 +13,7 @@ export const Horarios = () => {
 <container>
   <Row className="justify-content-md-center">
     <Col xs md='10'>
-    <h2>Horarios</h2>
+    <h3 className='text-center'>Horarios</h3>
 <Form >
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Hora de Inicio</Form.Label>
@@ -31,7 +31,7 @@ export const Horarios = () => {
     </Form>
 
 
-      <h2>ReporteHorarios</h2>
+      <h3 className='text-center mb-5'>ReporteHorarios</h3>
       <table class='table'>
         <th>IdHorario</th>
         <th>Hora Inicio</th>
