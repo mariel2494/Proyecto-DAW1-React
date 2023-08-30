@@ -1,23 +1,38 @@
 //Mariel
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Table from 'react-bootstrap/Table';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export const Horarios = () => {
   return (
     <>
-      <h1>Horarios</h1>
-      <form>
-        <label>Hora inicio</label>
-        <br />
-        <input type='time' />
-        <br />
-        <label>Hora final</label>
-        <br />
-        <input type='time' />
-        <br />
-      </form>
-      <button>Enviar</button>
+      
+<container>
+  <Row className="justify-content-md-center">
+    <Col xs md='10'>
+    <h2>Horarios</h2>
+<Form >
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Hora de Inicio</Form.Label>
+        <Form.Control type="time" placeholder="Enter email" />
+      </Form.Group>
 
-      <h1>ReporteHorarios</h1>
-      <table>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Hora Finalizacion</Form.Label>
+        <Form.Control type="time" placeholder="Password" />
+      </Form.Group>
+
+      <Button className="mb-5" variant="primary" type="submit">
+        Enviar
+      </Button>
+    </Form>
+
+
+      <h2>ReporteHorarios</h2>
+      <table class='table'>
         <th>IdHorario</th>
         <th>Hora Inicio</th>
         <th>Hora Finalizacion</th>
@@ -29,6 +44,13 @@ export const Horarios = () => {
           </tr>
         </tbody>
       </table>
+    </Col>
+ 
+  </Row>
+
+
+</container>
+      
 
 
     </>
