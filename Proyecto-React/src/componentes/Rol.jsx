@@ -1,37 +1,57 @@
 //Elvis
-import React from 'react'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
+import React from 'react'
 export const Rol = () => {
   return (
-    <>
-      <h1>Rol</h1>
-      <form>
-        <label>Nombre</label>
-        <br />
-        <input type='text' />
-        <br />
-        <label>Fecha Desactivado</label>
-        <br />
-        <input type='Date' />
-        <br />
-      </form>
-      <button>Enviar</button>
+    <><container>
+  <Row className="justify-content-md-center">
+    <Col xs md='10'>
+    <h3 className='text-center'>Rol</h3>
+<Form >
+      <Form.Group className="mb-3" controlId="formBasictext">
+        <Form.Label>Nombre</Form.Label>
+        <Form.Control type="text" placeholder="Nombre" />
+      </Form.Group>
 
-      <h1>ReporteRol</h1><table>
-        <th>ID_Rol</th>
+      <Form.Group className="mb-3" controlId="form">
+        <Form.Label>Fecha Desactivado</Form.Label>
+        <Form.Control type="time" placeholder="Fechas desactivado" />
+      </Form.Group>
+
+      <Button className="mb-5" variant="primary" type="submit">
+        Enviar
+      </Button>
+    </Form>
+
+
+      <h3 className='text-center mb-5'>ReporteRol</h3>
+
+      <table class='table'>
+        <th>IdRol</th>
         <th>Nombre</th>
-        <th>activo</th>
+        <th>Activo</th>
         <th>Fecha Desactivado</th>
         <tbody>
           <tr>
             <td>1</td>
             <td>Elvis Flores</td>
             <td>True</td>
-            <td>Dato</td>
+            <td>30/08/2023  16:00:00</td>
           </tr>
-
         </tbody>
       </table>
+    </Col>
+ 
+  </Row>
+
+
+</container>
+      
+
 
     </>
   )
