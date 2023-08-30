@@ -32,7 +32,7 @@ export const Horarios = () => {
 
 
       <h3 className='text-center mb-5'>ReporteHorarios</h3>
-      <table class='table'>
+      <table className='table'>
         <th>IdHorario</th>
         <th>Hora Inicio</th>
         <th>Hora Finalizacion</th>
