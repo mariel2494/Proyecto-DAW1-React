@@ -3,31 +3,45 @@
 export const Laboratorio = () => {
   return (
     <>
-      <form >
-        <h1>Crear Laboratorios</h1>
+      <div className="container mt-5">
+    <form>
+      <h1>Crear Laboratorios</h1>
 
-        <label>Nombre</label><br />
-        <input type="text" name="nombre" placeholder="Nombre" /><br />
-        <label >Activo</label><br />
-        <input type="checkbox" checked /><br />
-        <label >Fecha Desactivado</label><br />
-        <input type="date" name="fecha" disabled /><br />
+      <div className="mb-3">
+        <label  className="form-label">Nombre</label>
+        <input type="text" className="form-control" id="nombre" name="nombre" placeholder="Nombre"/>
+      </div>
 
-        <button type="submit">Guardar</button>
-      </form>
+      <div className="mb-3 form-check">
+        <input type="checkbox" className="form-check-input" id="activo" checked/>
+        <label className="form-check-label" >Activo</label>
+      </div>
 
-      <table border="1">
+      <div className="mb-3">
+        <label className="form-label">Fecha Desactivado</label>
+        <input type="date" className="form-control" id="fecha" name="fecha" disabled/>
+      </div>
+
+      <button type="submit" className="btn btn-primary">Guardar</button>
+    </form>
+
+    <table className="table mt-4">
+      <thead>
         <tr>
           <th>Nombre</th>
           <th>Activo</th>
           <th>Fecha Desactivado</th>
         </tr>
+      </thead>
+      <tbody>
         <tr>
           <td>Nombre Ejemplo</td>
           <td>✔️</td>
           <td>2023-08-27</td>
         </tr>
-      </table>
+      </tbody>
+    </table>
+  </div>
 
     </>
   )
