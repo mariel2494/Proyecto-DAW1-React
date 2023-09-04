@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 import React from 'react'
 
+
 export const Rol = () => {
   return (
     <><Container>
@@ -32,13 +33,13 @@ export const Rol = () => {
 
       <h3 className='text-center mb-5'>ReporteRol</h3>
 
-      <Table class='table'>
+      <Table class='table-success'>
         <th>IdRol</th>
         <th>Nombre</th>
         <th>Activo</th>
         <th>Fecha Desactivado</th>
         <tbody>
-          <tr>
+          <tr class="table-success">
             <td>1</td>
             <td>Elvis Flores</td>
             <td>True</td>
