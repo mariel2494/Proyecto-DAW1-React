@@ -1,104 +1,144 @@
-import React from 'react'
-import Container from 'react-bootstrap/esm/Container'
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button'
-import Table from 'react-bootstrap/Table';
+import  { React, useState, useEffect } from "react";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+
+const url = "http://localhost:3000/api/usuario";
 
 export const Usuario = () => {
+
+  
+  const [datos, setDatos] = useState([]);
+  const [nombre, setNombre] = useState('');
+  const [apellido, setApellido] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [error, setError] = useState(null);
+
+  const getUsuario = async () => {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Error al obtener datos del servidor");
+      }
+      const data = await response.json();
+      setDatos(data);
+    } catch (error) {
+      console.error(error);
+      setError(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getUsuario();
+  }, []);
+
+  const handleNombreChange = (event) => {
+    setNombre(event.target.value);
+  };
+
+  const handleApellidoChange = (event) => {
+    setApellido(event.target.value);
+  };
+
+  const handleCorreoChange = (event) => {
+    setCorreo(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+
+
+  const postUsuario = async (event) => {
+    event.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("nombre", nombre);
+      formData.append("apellido", apellido);
+      formData.append("correo", correo);
+      formData.append("contrasenia", password);
+
+
+      const response = await fetch(url, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al enviar datos al servidor");
+      }
+
+      // Actualizar la lista de datos después de enviar el nuevo producto
+      getUsuario();
+
+      // Limpiar los campos después de enviar
+      setNombre("");
+      setApellido("");
+      setCorreo("");
+      setPassword("");
+  
+    } catch (error) {
+      console.error(error);
+    
+    }
+  };
+
+
+
   return (
     <>
-<Container fluid="md">
-<Col className='justify-content-md-center'>
-    <h1 className='text-center p-3'>Usuario</h1>
-</Col>
+     <div className="container" style={{ maxWidth: "500px", margin: "0 auto", padding: "20px" }}>
+        <h1 className="text-center">Crear Usuario</h1>
 
-      <Row className='justify-content-md-center'>
-        <Col className='col-sm-12 col-lg-6'>
-        <FloatingLabel
-        controlId="floatingInput"
-        label="Nombre"
-        className="mb-3"
-      >
-        <Form.Control type="name" placeholder="Erick" />
-      </FloatingLabel>
-      <FloatingLabel
-        controlId="floatingInput"
-        label="Apellido"
-        className="mb-3"
-      >
-        <Form.Control type="name" placeholder="Osorto" />
-      </FloatingLabel>
-      <FloatingLabel
-        controlId="floatingInput"
-        label="Correo Electronico"
-        className="mb-3"
-      >
-        <Form.Control type="email" placeholder="name@example.com" />
-      </FloatingLabel>
-      <FloatingLabel controlId="floatingPassword" label="Password">
-        <Form.Control type="password" placeholder="Password" />
-      </FloatingLabel>
-      <div className="d-grid gap-2 mt-3">
-      <Button variant="primary" size="lg">
-        Enviar
-      </Button>
-      
-    </div>
-      
-        </Col>
-        
-      </Row>
-    </Container>
+        <form onSubmit={postUsuario}>
+          <div className="mb-3">
+            <label className="form-label">Nombre</label>
+            <input
+              type="text"
+              className="form-control"
+              value={nombre}
+              onChange={handleNombreChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Apellido</label>
+            <input
+              type="text"
+              className="form-control"
+              value={apellido}
+              onChange={handleApellidoChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Correo</label>
+            <input
+              type="text"
+              className="form-control"
+              value={correo}
+              onChange={handleCorreoChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Contrasena</label>
+            <input
+              type="text"
+              className="form-control"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          </div>
 
-    <Container fluid="md mt-5">
-        <Row className='justify-content-md-center '>
-            <Col className='col-lg-6 col-sm-12'>      
-              <Table striped>
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Correo</th>
-          <th>Contraseña</th>
-          <th>id_rol</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Erick</td>
-          <td>Osorto</td>
-          <td>erick.osorto@unitec.edu</td>
-          <td>12345</td>
-          <td>Usuario</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Cristiano</td>
-          <td>Ronaldo</td>
-          <td>cr7@gmail.com</td>
-          <td>12345</td>
-          <td>Asministrador</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Leo</td>
-          <td>Messi</td>
-          <td>messi@gmail.com</td>
-          <td>12345</td>
-          <td>Usuario</td>
-        </tr>
-     
-      </tbody>
-    </Table></Col>
+          <button type="submit" className="btn btn-primary">
+            Crear Usuario
+          </button>
+          <br /><br />
+        </form>
 
-        </Row>
-    </Container>
-    
+
+
+      </div>
    </>
   )
 }
