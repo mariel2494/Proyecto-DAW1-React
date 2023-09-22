@@ -4,7 +4,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
-import Label from 'react-bootstrap/Label';
 import React from 'react';
 let url = "http://localhost:3000/api/reservas";
 

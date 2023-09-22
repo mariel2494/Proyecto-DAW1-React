@@ -1,7 +1,7 @@
 import { Inicio } from './componentes/Inicio'
 import { Horarios } from './componentes/Horarios'
 import { Laboratorio } from './componentes/Laboratorio'
-import { Reservas } from './componentes/Reservas'
+import { Reservas } from './componentes/Reserva'
 import { Rol } from './componentes/Rol'
 import { Usuario } from './componentes/Usuario'
 import { Menu } from './componentes/Menu'
