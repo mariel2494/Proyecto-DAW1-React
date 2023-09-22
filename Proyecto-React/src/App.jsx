@@ -1,7 +1,7 @@
 import { Inicio } from './componentes/Inicio'
 import { Horarios } from './componentes/Horarios'
 import { Laboratorio } from './componentes/Laboratorio'
-import { Reservas } from './componentes/Reserva'
+import { Reserva } from './componentes/Reserva'
 import { Rol } from './componentes/Rol'
 import { Usuario } from './componentes/Usuario'
 import { Menu } from './componentes/Menu'
@@ -30,7 +30,7 @@ function App() {
         {inicioSesion && <Route path='/' element={<Inicio />} />}
         {inicioSesion && <Route path='/horarios' element={<Horarios />} />}
         {inicioSesion && <Route path='/laboratorio' element={<Laboratorio />} />}
-        {inicioSesion && <Route path='/reservas' element={<Reservas />} />}
+        {inicioSesion && <Route path='/reservas' element={<Reserva />} />}
         {inicioSesion && <Route path='/rol' element={<Rol />} />}
         {inicioSesion && <Route path='/usuario' element={<Usuario />} />}
 
