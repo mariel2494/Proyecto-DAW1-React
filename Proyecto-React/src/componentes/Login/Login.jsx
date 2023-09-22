@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
  
 export const Login = ({ dataSesion }) => { 
-  const [correo, setCorreo] = useState(''); 
+  const [email, setEmail] = useState(''); 
   const [password, setPassword] = useState(''); 
   const [error, setError] = useState(''); 
   const url = "http://localhost:3000/api/login";
  
   const handleCorreoChange = useCallback((event) => { 
-    setCorreo(event.target.value); 
+    setEmail(event.target.value); 
   }, []); 
  
   const handlePasswordChange = useCallback((event) => { 
@@ -21,15 +21,15 @@ export const Login = ({ dataSesion }) => {
     setError(''); // Limpiar el estado de error al enviar el formulario 
  
     // Validar que los campos estén completos 
-    if (correo.trim() === '' || password.trim() === '') { 
+    if (email.trim() === '' || password.trim() === '') { 
       setError('Por favor, complete todos los campos'); 
       return; 
     } 
  
     try { 
       const bodyResponse = { 
-        correo: correo,  
-        password: password 
+        correo: email,  
+        contrasenia: password 
       }; 
       const response = await fetch(url, { 
         
@@ -55,7 +55,7 @@ export const Login = ({ dataSesion }) => {
         setError('Error de conexión'); 
       } 
     } 
-  }, [correo, password, dataSesion]); 
+  }, [email, password, dataSesion]); 
  
   return ( 
     <> 
@@ -68,7 +68,7 @@ export const Login = ({ dataSesion }) => {
             <input 
               type="email" 
               className='form-control' 
-              value={correo} 
+              value={email} 
               onChange={handleCorreoChange} 
             /> 
           </div> 
