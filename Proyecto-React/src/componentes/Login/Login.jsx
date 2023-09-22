@@ -41,6 +41,7 @@ export const Login = ({ dataSesion }) => {
       }); 
 
       const jsonResponse = await response.json();
+       console.log("🚀 ~ file: Login.jsx:44 ~ handleSubmit ~ jsonResponse:", jsonResponse)
        
       if (response.status === 200) { 
         console.log(jsonResponse); 
