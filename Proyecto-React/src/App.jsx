@@ -6,40 +6,35 @@ import { Rol } from './componentes/Rol'
 import { Usuario } from './componentes/Usuario'
 import { Menu } from './componentes/Menu'
 import { Routes, Route } from 'react-router-dom'
-import { useState, useCallback } from 'react'; 
-import { Link } from 'react-router-dom'; 
+import { useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { Login } from './componentes/Login/Login'
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [inicioSesion, isAuthenticated, setIsAuthenticated, setInicioSesion] = useState(false);
 
   const handleLogin = (isLoggedIn) => {
     setIsAuthenticated(isLoggedIn);
+
   };
- 
+  const onInicioSesion = (val) => {
+    console.log(val);
+    setInicioSesion(val);
+  }
+
   return (
     <>
-      <Menu />
+      {inicioSesion && <Menu auth />}
       <Routes>
-        <Route path='/' element={<Inicio />} />
-        <Route path='/horarios' element={<Horarios />} />
-        <Route path='/laboratorio' element={<Laboratorio />} />
-        <Route path='/reservas' element={<Reservas />} />
-        <Route path='/rol' element={<Rol />} />
-        <Route path='/usuario' element={<Usuario />} />
-        {/* Add a new route for the Login component */}
-        <Route
-          path='/login'
-          element={
-            isAuthenticated ? (
-              // Redirect to another page if the user is already authenticated
-              <Navigate to='/' />
-            ) : (
-              // Render the Login component if the user is not authenticated
-              <Login dataSesion={handleLogin} />
-            )
-          }
-        />
+        {inicioSesion == false && <Route path='/' element={<Login dataSesion={onInicioSesion} />}  ></Route>}
+        {inicioSesion && <Route path='/' element={<Inicio />} />}
+        {inicioSesion && <Route path='/horarios' element={<Horarios />} />}
+        {inicioSesion && <Route path='/laboratorio' element={<Laboratorio />} />}
+        {inicioSesion && <Route path='/reservas' element={<Reservas />} />}
+        {inicioSesion && <Route path='/rol' element={<Rol />} />}
+        {inicioSesion && <Route path='/usuario' element={<Usuario />} />}
+
+        <Route />
       </Routes>
     </>
   );
