@@ -13,11 +13,34 @@ import Table from 'react-bootstrap/Table';
 
 const url ='http://localhost:3000/api/horarios';
 const urlLab ='http://localhost:3000/api/laboratorio';
-
+const urlUs ='http://localhost:3000/api/usuario';
+const urlPost = 'http://localhost:3000/api/reservas';
 
 export const Reservas = () => {
     const [data, setData] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
+    const [laboratorio, setLaboratorio] = useState("");
+    const [horainicio, setHorainicio] = useState("");
+    const [usuario, setUsuario] = useState("");
+    const [fecha, setFecha] = useState("");
+
+
+  const handleInputLab=(e)=>{
+    setLaboratorio(e.target.value);
+    
+  }
+  const handleInputFec=(e)=>{
+    setFecha(e.target.value);
+    
+  }
+  const handleInputHora=(e)=>{
+    setHorainicio(e.target.value);
+   
+  }
+  const handleInputUsu=(e)=>{
+    setUsuario(e.target.value);
+  
+  }
 
     useEffect(() => {
         // Realiza la solicitud a la API
@@ -30,9 +53,7 @@ export const Reservas = () => {
                 console.error('Error al obtener datos de la API:', error);
             });
     }, []);
-    const handleSelectChange = (event) => {
-        setSelectedOption(event.target.value);
-    };
+  
 
     const [datos, setDatos] = useState([]);
     
@@ -49,8 +70,50 @@ export const Reservas = () => {
     }, []);
 
 
+    const [datoUs, setDatoUs] = useState([]);
+    useEffect(() => {
+        // Realiza la solicitud a la API
+        fetch(urlUs)
+            .then((response) => response.json())
+            .then((result) => {
+                setDatoUs(result); // Almacena los datos en el estado
+            })
+            .catch((error) => {
+                console.error('Error al obtener datos de la API:', error);
+            });
+    }, []);
 
 
+    const postReservas = async (event) => {
+        event.preventDefault();
+    
+        try {
+         
+          const response = await fetch(urlPost, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ laboratorio, horainicio, usuario,fecha }),
+          });
+    
+          if (!response.ok) {
+            throw new Error('Error al enviar datos de ciudad al servidor');
+          }
+    
+          // Actualizar la lista de datos después de enviar el nuevo producto
+          
+    
+          // Limpiar los campos después de enviar
+          setLaboratorio("");
+          setHorainicio("");
+          setUsuario("");
+      
+        } catch (error) {
+          console.error(error);
+        }
+      };
+ 
     return (
         <Container>
 
@@ -60,66 +123,47 @@ export const Reservas = () => {
 
                 <Col md='10'>
                     <h1 className='text-center mb-4'>Reservas</h1>
-                    <Form>
+                    <Form onSubmit={postReservas}>
                         <Form.Group controlId='formLab'>
                             <Form.Label>Laboratorio</Form.Label>
-                            <Form.Select >
+                            <Form.Select  onChange={handleInputLab}>
                             <option value="">Selecciona una opción</option>
-                                {datos.map((item) => (<option key={item.id_lab} value={item.id_lab}>{item.nombre}</option>))}
+                                {datos.map((item) => (<option key={item.id_lab} value={item.nombre}>{item.nombre}</option>))}
                             </Form.Select>
                         </Form.Group>
 
                         <Form.Group controlId='formHorario'>
                             <Form.Label>Horario</Form.Label>
-                            <Form.Select >
+                            <Form.Select  onChange={handleInputHora}>
                             <option value="">Selecciona una opción</option>
-                                {data.map((item) => (<option key={item.id_horario} value={item.id_horario}>{item.horainicio}</option>))}
+                                {data.map((item) => (<option key={item.id_horario} value={item.horainicio}>{item.horainicio}</option>))}
                             </Form.Select>
                         </Form.Group>
 
                         <Form.Group controlId='formUsuario'>
                             <Form.Label>Usuario</Form.Label>
-                            <Form.Select>
-                                <option value='1'>User 1</option>
-                                <option value='2'>User 2</option>
+                            <Form.Select onChange={handleInputUsu} >
+                            <option value="" typeof="mail">Selecciona una opción</option>
+                                {datoUs.map((item) => (<option key={item.id_usuario} value={item.correo}>{item.correo}</option>))}
                             </Form.Select>
                         </Form.Group>
-
-                
-
 
                         <Form.Group controlId='formFechaIngreso'>
                             <Form.Label>Fecha Ingreso</Form.Label>
 
-                            <Form.Control type='date' />
-                            <th />
+                            <Form.Control onChange={handleInputFec} type='date' />
+                          
                         </Form.Group>
-                        <th />
+                        
 
                         <Button variant='primary' type='submit'>
                             Reservar
                         </Button>
                     </Form>
 
-                    <h2 className='mt-5 text-center'>ReporteReservas</h2>
-                    <Table striped bordered responsive>
-                        <thead>
-                            <tr>
-                                <th>IdReserva</th>
-                                <th>IdLab</th>
-                                <th>IdHorario</th>
-                                <th>IdUsuario</th>
-                                <th>Fecha Ingreso</th>
-                                <th>Activo</th>
-                                <th>Fecha Desactivado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
+                   
 
-                            </tr>
-                        </tbody>
-                    </Table>
+                    
                 </Col>
             </Row>
         </Container>
