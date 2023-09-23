@@ -1,102 +1,72 @@
-import  { React, useState, useEffect } from "react";
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-
-const url = "http://localhost:3000/api/laboratorio";
-
+import { useCallback, useState } from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Laboratorio = () => {
-
-  
-  const [datos, setDatos] = useState([]);
   const [nombre, setNombre] = useState('');
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
+  const url = 'http://localhost:3000/api/laboratorio';
 
-  const getLaboratorio = async () => {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Error al obtener datos del servidor");
-      }
-      const data = await response.json();
-      setDatos(data);
-    } catch (error) {
-      console.error(error);
-      setError(error.message);
-    }
-  };
-
-  useEffect(() => {
-    getLaboratorio();
-  }, []);
-
-  const handleNombreChange = (event) => {
+  const handleNombreChange = useCallback((event) => {
     setNombre(event.target.value);
-  };
+  }, [setNombre]);
 
-
-
-
-
-
-  const postLaboratorio = async (event) => {
+  const handleSubmit = useCallback(async (event) => {
     event.preventDefault();
+    setError(''); // Limpiar el estado de error al enviar el formulario 
+    // Validar que los campos estén completos 
+    if (nombre.trim() === '') {
+      setError('Por favor, complete todos los campos');
+      return;
+    }
     try {
-      const formData = new FormData();
-      formData.append("nombre", nombre);
-
-
-
+      const bodyResponse = {
+        nombre
+      };
+      console.log("🚀 ~ file: Laboratorio.jsx:27 ~ handleSubmit ~ bodyResponse:", bodyResponse)
       const response = await fetch(url, {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bodyResponse)
       });
-
-      if (!response.ok) {
-        throw new Error("Error al enviar datos al servidor");
+      console.log("🚀 ~ file: Laboratorio.jsx:35 ~ handleSubmit ~ bodyResponse:", bodyResponse)
+      const jsonResponse = await response.json();
+      if (response.status === 200) {
+        toast.success('¡Laboratorio creado exitosamente!');
+        console.log(jsonResponse);
+      }else {
+        toast.error('Error al crear el laboratorio');
       }
-
-      // Actualizar la lista de datos después de enviar el nuevo producto
-      getLaboratorio();
-
-      // Limpiar los campos después de enviar
-      setNombre("");
-
-  
-    } catch (error) {
-      console.error(error);
-    
+    } catch {
+      toast.error('Error al crear el laboratorio');
     }
-  };
+  }, [nombre, setError]);
 
   return (
     <>
-      <div className="container" style={{ maxWidth: "500px", margin: "0 auto", padding: "20px" }}>
-        <h1 className="text-center">Crear Laboratorios</h1>
-
-        <form onSubmit={postLaboratorio}>
-          <div className="mb-3">
+      <div className="container">
+        <form>
+          <h1 className="text-center">Crear Laboratorios</h1>
+          <div className="form-group mb-3">
             <label className="form-label">Nombre</label>
             <input
+              onChange={handleNombreChange}
               type="text"
               className="form-control"
-              value={nombre}
-              onChange={handleNombreChange}
-            />
+              id="nombre"
+              name="nombre"
+              placeholder="Nombre" />
           </div>
 
-
-
-
-          <button type="submit" className="btn btn-primary">
-            Crear Laboratorio
-          </button>
-          <br /><br />
+          <button 
+            type="submit"
+            onClick={handleSubmit}
+            className="btn btn-primary">Guardar</button>
         </form>
-
-
-
+        
       </div>
     </>
-  )
-}
+  );
+};

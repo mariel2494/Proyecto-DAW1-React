@@ -6,7 +6,7 @@ import { Rol } from './componentes/Rol'
 import { Usuario } from './componentes/Usuario'
 import { Menu } from './componentes/Menu'
 import { Routes, Route } from 'react-router-dom'
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { Login } from './componentes/Login/Login'
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
 
   return (
     <>
-      {inicioSesion && <Menu auth />}
+      { <Menu auth />}
       <Routes>
         {inicioSesion == false && <Route path='/' element={<Login dataSesion={onInicioSesion} />}  ></Route>}
         {inicioSesion && <Route path='/' element={<Inicio />} ></Route>}
