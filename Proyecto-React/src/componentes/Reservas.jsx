@@ -218,8 +218,8 @@ export const Reservas = () => {
                 </Col>
 
 
-
-                <table className="table">
+<Row className="col-lg-8 col-sm-12 mt-5">
+                <Table className="table" striped>
           <thead className="table-dark">
             <tr>
        
@@ -255,7 +255,8 @@ export const Reservas = () => {
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
+        </Row>
             </Row>
         </Container>
             
