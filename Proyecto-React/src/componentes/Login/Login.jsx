@@ -51,7 +51,10 @@ const Login = ({ dataSesion }) => {
         localStorage.setItem('nombre', jsonResponse.user.nombre);
 
         dataSesion(jsonResponse.user.id_rol, jsonResponse.user.id_usuario, jsonResponse.user.correo, jsonResponse.user.nombre); 
-        navigate('/inicio');
+        if(jsonResponse.user.id_rol === 1){
+          navigate('/laboratorio')
+        }
+        navigate('/reservacion');
       } 
     } catch (error) {
       console.error(error);
@@ -89,7 +92,7 @@ const Login = ({ dataSesion }) => {
           </div>
           <br />
           <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
-          <Link className='link-style' to="/usuario">Registrarse</Link>
+          <Link className='link-style' to="/registro">Registrarse</Link>
         </form>
       </div>
     </>
