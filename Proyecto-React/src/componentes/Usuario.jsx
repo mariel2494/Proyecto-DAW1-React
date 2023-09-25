@@ -89,7 +89,7 @@ export const Usuario = () => {
 
   return (
     <>
-     <div className="container" style={{ maxWidth: "500px", margin: "0 auto", padding: "20px" }}>
+     <div className="container" style={{ maxWidth: "550px", margin: "0 auto", padding: "20px" }}>
         <h1 className="text-center">Crear Usuario</h1>
 
         <form onSubmit={postUsuario}>

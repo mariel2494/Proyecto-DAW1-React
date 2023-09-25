@@ -46,7 +46,8 @@ export const Laboratorio = () => {
 
   return (
     <>
-      <div className="container">
+      
+      <div className="container" style={{ maxWidth: "550px", margin: "0 auto", padding: "20px" }}>
         <form>
           <h1 className="text-center">Crear Laboratorios</h1>
           <div className="form-group mb-3">

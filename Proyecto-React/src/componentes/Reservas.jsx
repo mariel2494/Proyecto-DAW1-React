@@ -115,13 +115,9 @@ export const Reservas = () => {
       };
  
     return (
-        <Container>
+        
+                <div className="container" style={{ maxWidth: "550px", margin: "0 auto", padding: "20px" }}>
 
-
-            <Row className='justify-content-center'>
-
-
-                <Col md='10'>
                     <h1 className='text-center mb-4'>Reservas</h1>
                     <Form onSubmit={postReservas}>
                         <Form.Group controlId='formLab'>
@@ -164,9 +160,8 @@ export const Reservas = () => {
                    
 
                     
-                </Col>
-            </Row>
-        </Container>
+                </div>
+        
 
 
     );
