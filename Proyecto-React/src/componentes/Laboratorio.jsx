@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const Laboratorio = () => {
   const [nombre, setNombre] = useState('');
-  const [laboratorios, setLaboratorios] = useState([]); 
+  const [laboratorios, setLaboratorios] = useState([]);
   const [, setError] = useState('');
   const url = 'http://localhost:3000/api/laboratorio';
 
@@ -15,17 +15,17 @@ export const Laboratorio = () => {
   const handleSubmit = useCallback(async (event) => {
     event.preventDefault();
     setError('');
-    
+
     if (nombre.trim() === '') {
       setError('Por favor, complete todos los campos');
       return;
     }
-    
+
     try {
       const bodyResponse = {
         nombre
       };
-      
+
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -37,10 +37,9 @@ export const Laboratorio = () => {
       const jsonResponse = await response.json();
 
       if (response.status === 200) {
-        toast.success('¡Laboratorio creado exitosamente!');
-        setNombre(''); 
+        toast.success('¡Laboratorio creado exitosamente!'); // Mostrar mensaje de éxito
+        setNombre('');
         console.log(jsonResponse);
-        
         fetchLaboratorios();
       } else {
         toast.error('Error al crear el laboratorio');
@@ -50,12 +49,11 @@ export const Laboratorio = () => {
     }
   }, [nombre, setError]);
 
-  
   const fetchLaboratorios = async () => {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      setLaboratorios(data); 
+      setLaboratorios(data);
     } catch (error) {
       console.error(error);
     }
@@ -67,8 +65,8 @@ export const Laboratorio = () => {
 
   return (
     <>
-      
-      <div className="container" style={{ maxWidth: "550px", margin: "0 auto", padding: "20px" }}>
+        
+        <div className="container" style={{ maxWidth: "550px", margin: "0 auto", padding: "20px" }}>
         <form>
           <h1 className="text-center">Crear Laboratorios</h1>
           <div className="form-group mb-3">

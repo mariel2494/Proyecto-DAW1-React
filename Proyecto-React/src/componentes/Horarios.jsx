@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
@@ -7,6 +7,8 @@ export const Horarios = () => {
   const [horaFinalizacion, setHoraFinalizacion] = useState('');
   const [horarios, setHorarios] = useState([]);
   const [error, setError] = useState('');
+  const [mensajeExito, setMensajeExito] = useState(''); // Nuevo estado para el mensaje de éxito
+  const [mensajeError, setMensajeError] = useState(''); // Nuevo estado para el mensaje de error
 
   useEffect(() => {
     fetchHorarios();
@@ -37,13 +39,16 @@ export const Horarios = () => {
       if (response.status === 200) {
         setHoraInicio('');
         setHoraFinalizacion('');
-        fetchHorarios(); // Después de crear un horario, obtén la lista actualizada
+        fetchHorarios();
+        setMensajeExito('Horario creado exitosamente'); // Mensaje de éxito
       } else {
         setError('Error al crear el horario');
+        setMensajeError('Error al crear el horario'); // Mensaje de error
       }
     } catch (error) {
       console.error('Error al crear el horario', error);
       setError('Error al crear el horario');
+      setMensajeError('Error al crear el horario'); // Mensaje de error
     }
   };
 
@@ -81,12 +86,17 @@ export const Horarios = () => {
             </Button>
           </div>
         </Form>
+        {mensajeExito && (
+          <div className="alert alert-success mt-3">{mensajeExito}</div>
+        )}
+        {mensajeError && (
+          <div className="alert alert-danger mt-3">{mensajeError}</div>
+        )}
         <h3 className='text-center mb-5'>ReporteHorarios</h3>
         <div className='text-center'>
           <table className='table'>
             <thead>
-              <tr>
-                
+              <tr>                
                 <th>Hora Inicio</th>
                 <th>Hora Finalizacion</th>
               </tr>
