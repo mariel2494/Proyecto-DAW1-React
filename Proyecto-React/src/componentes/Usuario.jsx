@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert'; // Importa el componente Alert de Bootstrap
 
 const url = "http://localhost:3000/api/usuario";
 
@@ -9,6 +10,7 @@ export const Usuario = () => {
   const [apellido, setApellido] = useState('');
   const [correo, setCorreo] = useState('');
   const [contrasenia, setContrasenia] = useState('');
+  const [creadoConExito, setCreadoConExito] = useState(false); // Nuevo estado para el mensaje de éxito
 
   const handleNombreChange = (event) => {
     setNombre(event.target.value);
@@ -52,6 +54,9 @@ export const Usuario = () => {
       setApellido("");
       setCorreo("");
       setContrasenia("");
+      
+      // Mostrar mensaje de éxito
+      setCreadoConExito(true);
     } catch (error) {
       console.error(error);
     }
@@ -60,6 +65,11 @@ export const Usuario = () => {
   return (
     <div className="container" style={{ maxWidth: "500px", margin: "0 auto", padding: "20px" }}>
       <h1 className="text-center">Crear Usuario</h1>
+      {creadoConExito && ( // Mostrar la alerta de éxito si creadoConExito es true
+        <Alert variant="success">
+          Usuario creado con éxito.
+        </Alert>
+      )}
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formNombre">
           <Form.Label>Nombre</Form.Label>
