@@ -91,7 +91,7 @@ export const Laboratorio = () => {
         </form>
       </div>
 
-      <div className="container mt-4">
+      <div className="container" style={{ maxWidth: "550px", margin: "0 auto", padding: "20px" }}>
         <h2>Listado de Laboratorios</h2>
         <table className="table">
           <thead>
