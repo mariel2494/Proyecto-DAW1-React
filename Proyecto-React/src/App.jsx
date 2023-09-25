@@ -1,49 +1,41 @@
-import { Inicio } from './componentes/Inicio'
-import { Horarios } from './componentes/Horarios'
-import { Laboratorio } from './componentes/Laboratorio'
-import { Reservas } from './componentes/Reservas'
-import { Rol } from './componentes/Rol'
-import { Usuario } from './componentes/Usuario'
-import { Menu } from './componentes/Menu'
-import { Routes, Route } from 'react-router-dom'
+
 import { useState } from 'react';
-import { Login } from './componentes/Login/Login'
+import { Routes, Route} from 'react-router-dom';
+import { Inicio } from './componentes/Inicio';
+import { Menu } from './componentes/Menu';
+
+import { Horarios } from './componentes/Horarios';
+import { Laboratorio } from './componentes/Laboratorio';
+import { Reservas } from './componentes/Reservas';
+import { Rol } from './componentes/Rol';
+import { Usuario } from './componentes/Usuario';
+import Login from './componentes/Login/Login';
 
 function App() {
   const [inicioSesion, setInicioSesion] = useState(false);
+  const [id_rol, setId_rol] = useState(0);
 
-
-
-  const onInicioSesion = (val) => {
-    console.log(val);
-    
+  const handleInicioSesion = (val) => {
+    console.log('Inicio de sesión exitoso:', val);
+    setId_rol(val);
     setInicioSesion(val);
-  }
+  };
 
   return (
     <>
-      { <Menu auth />}
+      {inicioSesion && <Menu auth={id_rol}/>}
       <Routes>
-        {inicioSesion == false && <Route path='/' element={<Login dataSesion={onInicioSesion} />}  ></Route>}
-        {inicioSesion && <Route path='/' element={<Inicio />} ></Route>}
-        {inicioSesion && <Route path='/horarios' element={<Horarios />}  ></Route>}
-        {inicioSesion && <Route path='/laboratorio' element={<Laboratorio />}  ></Route>}
-        {inicioSesion && <Route path='/reservas' element={<Reservas />}  ></Route>}
-        {inicioSesion && <Route path='/rol' element={<Rol />}  ></Route>}
-        {inicioSesion && <Route path='/usuario' element={<Usuario />}  ></Route>}
-        
-        
-        
-
-
+        {inicioSesion == false && <Route path='/' element={<Login dataSesion={handleInicioSesion} />}  ></Route>}
+        {inicioSesion && <Route path='/inicio' element={<Inicio />} />}
+        {inicioSesion && id_rol == 1 &&<Route path="/horarios" element={<Horarios />} />}
+        {inicioSesion && id_rol == 1 &&<Route path="/laboratorio" element={<Laboratorio />} />}
+        {inicioSesion && id_rol == 2 &&<Route path="/reservas" element={<Reservas />} />}
+        {inicioSesion && id_rol == 1 &&<Route path="/rol" element={<Rol />} />}
+        {inicioSesion && id_rol == 1 &&<Route path="/usuario" element={<Usuario />} />}
       </Routes>
+
     </>
   );
 }
 
 export default App;
-
-
-
-
-
