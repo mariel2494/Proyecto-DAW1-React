@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 export const Horarios = () => {
   const [horaInicio, setHoraInicio] = useState('');
@@ -25,13 +22,11 @@ export const Horarios = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     try {
       const bodyResponse = {
         horainicio: horaInicio,
         horafinal: horaFinalizacion,
       };
-
       const response = await fetch('http://localhost:3000/api/horarios', {
         method: 'POST',
         headers: {
@@ -39,11 +34,10 @@ export const Horarios = () => {
         },
         body: JSON.stringify(bodyResponse),
       });
-
       if (response.status === 200) {
         setHoraInicio('');
         setHoraFinalizacion('');
-        fetchHorarios();
+        fetchHorarios(); // Después de crear un horario, obtén la lista actualizada
       } else {
         setError('Error al crear el horario');
       }
@@ -57,7 +51,6 @@ export const Horarios = () => {
     try {
       const response = await fetch('http://localhost:3000/api/horarios');
       const data = await response.json();
-
       if (response.status === 200) {
         setHorarios(data);
       } else {
@@ -71,47 +64,44 @@ export const Horarios = () => {
 
   return (
     <>
-
-     
-            <div className="container" style={{ maxWidth: "550px", margin: "0 auto", padding: "20px" }}>
-              <h3 className='text-center'>Horarios</h3>
-              <Form >
-                <Form.Group className="mb-3 " controlId="formBasicEmail">
-                  <Form.Label>Hora de Inicio</Form.Label>
-                  <Form.Control type="time" placeholder="Enter email" />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Hora Finalizacion</Form.Label>
-                  <Form.Control type="time" placeholder="Password" />
-                </Form.Group>
-                <div className='text-center'>
-                  <Button className="mb-5 " variant="primary" type="submit">
-                    Enviar
-                  </Button>
-                </div>
-                <h3 className='text-center mb-5'>ReporteHorarios</h3>
-              </Form>
-              <div className='text-center'>
-                <table className='table'>
-                  <th>IdHorario</th>
-                  <th>Hora Inicio</th>
-                  <th>Hora Finalizacion</th>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Dato1</td>
-                      <td>Dato2</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-              </div>
-
-          
-
-    </div >
-
+      <div className="container" style={{ maxWidth: "550px", margin: "0 auto", padding: "20px" }}>
+        <h3 className='text-center'>Horarios</h3>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Hora de Inicio</Form.Label>
+            <Form.Control type="time" value={horaInicio} onChange={handleHoraInicioChange} />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Hora Finalizacion</Form.Label>
+            <Form.Control type="time" value={horaFinalizacion} onChange={handleHoraFinalizacionChange} />
+          </Form.Group>
+          <div className='text-center'>
+            <Button className="mb-5" variant="primary" type="submit">
+              Enviar
+            </Button>
+          </div>
+        </Form>
+        <h3 className='text-center mb-5'>ReporteHorarios</h3>
+        <div className='text-center'>
+          <table className='table'>
+            <thead>
+              <tr>
+                
+                <th>Hora Inicio</th>
+                <th>Hora Finalizacion</th>
+              </tr>
+            </thead>
+            <tbody>
+              {horarios.map((horario) => (
+                <tr key={horario.id_horario}>                  
+                  <td>{horario.horainicio}</td>
+                  <td>{horario.horafinal}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </>
   )
 }

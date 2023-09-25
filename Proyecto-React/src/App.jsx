@@ -4,12 +4,14 @@ import { Routes, Route} from 'react-router-dom';
 import { Inicio } from './componentes/Inicio';
 import { Menu } from './componentes/Menu';
 
-import { Horarios } from './componentes/Horarios';
+
 import { Laboratorio } from './componentes/Laboratorio';
 import { Reservas } from './componentes/Reservas';
-import { Rol } from './componentes/Rol';
+
 import { Usuario } from './componentes/Usuario';
 import Login from './componentes/Login/Login';
+import { Horarios } from './componentes/Horarios';
+import { Rol } from './componentes/Rol';
 
 function App() {
   const [inicioSesion, setInicioSesion] = useState(false);

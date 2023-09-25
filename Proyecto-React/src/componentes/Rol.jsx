@@ -1,22 +1,27 @@
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Table from 'react-bootstrap/Table';
 
 export const Rol = () => {
-  const [nombre, setNombre] = useState('');
-  const [roles, setRoles] = useState([]); // Estado para almacenar los datos de roles
+  const [horaInicio, setHoraInicio] = useState('');
+  const [horaFinalizacion, setHoraFinalizacion] = useState('');
+  const [horarios, setHorarios] = useState([]);
+  const [error, setError] = useState('');
+  const url ='http://localhost:3000/api/horarios'
 
   useEffect(() => {
-    // Realiza una solicitud GET para obtener los datos de roles cuando se monta el componente
-    fetchRoles();
+    fetchHorarios();
   }, []);
 
-  const handleNombreChange = (event) => {
-    setNombre(event.target.value);
+  const handleHoraInicioChange = (event) => {
+    setHoraInicio(event.target.value);
+  };
+
+  const handleHoraFinalizacionChange = (event) => {
+    setHoraFinalizacion(event.target.value);
   };
 
   const handleSubmit = async (event) => {
@@ -24,11 +29,11 @@ export const Rol = () => {
 
     try {
       const bodyResponse = {
-        nombre,
+        horainicio: horaInicio,
+        horafinal: horaFinalizacion,
       };
 
-      // Realiza una solicitud POST para crear un nuevo rol
-      const response = await fetch('http://localhost:3000/api/rol', {
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,78 +42,101 @@ export const Rol = () => {
       });
 
       if (response.status === 200) {
-        // Si la solicitud es exitosa, limpia el campo de nombre y actualiza la lista de roles
-        setNombre('');
-        fetchRoles();
+        setHoraInicio('');
+        setHoraFinalizacion('');
+        fetchHorarios();
       } else {
-        console.error('Error al crear el rol');
+        setError('Error al crear el horario');
       }
     } catch (error) {
-      console.error('Error al crear el rol', error);
+      console.error('Error al crear el horario', error);
+      setError('Error al crear el horario');
     }
   };
 
-  const fetchRoles = async () => {
+  const fetchHorarios = async () => {
     try {
-      // Realiza una solicitud GET para obtener los datos de roles
-      const response = await fetch('http://localhost:3000/api/rol');
+      const response = await fetch(url);
       const data = await response.json();
 
       if (response.status === 200) {
-        setRoles(data); // Almacena los datos en el estado
+        setHorarios(data);
       } else {
-        console.error('Error al obtener los roles');
+        setError('Error al obtener los horarios');
       }
     } catch (error) {
-      console.error('Error al obtener los roles', error);
+      console.error('Error al obtener los horarios', error);
+      setError('Error al obtener los horarios');
     }
   };
 
   return (
-    <>
-      <div className="container" style={{ maxWidth: "550px", margin: "0 auto", padding: "20px" }}>
+    <Container fluid>
+      <Row className="justify-content-md-center">
+        <Col className='col-sm-12 col-lg-6 '>
+          <h3 className='text-center'>Horarios</h3>
+          {error && <div className="alert alert-danger">{error}</div>}
+          <Form>
+            <Form.Group className="mb-3 " controlId="formHoraInicio">
+              <Form.Label>Hora de Inicio</Form.Label>
+              <Form.Control
+                type="time"
+                placeholder="Hora de Inicio"
+                value={horaInicio}
+                onChange={handleHoraInicioChange}
+              />
+            </Form.Group>
 
-        <h3 className='text-center'>Rol</h3>
-        <Form >
-          <Form.Group className="mb-3" controlId="formBasictext">
-            <Form.Label>Nombre</Form.Label>
-            <Form.Control type="text" placeholder="Nombre" />
-          </Form.Group>
+            <Form.Group className="mb-3" controlId="formHoraFinalizacion">
+              <Form.Label>Hora Finalización</Form.Label>
+              <Form.Control
+                type="time"
+                placeholder="Hora Finalización"
+                value={horaFinalizacion}
+                onChange={handleHoraFinalizacionChange}
+              />
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="form">
-            <Form.Label>Fecha Desactivado</Form.Label>
-            <Form.Control type="time" placeholder="Fechas desactivado" />
-          </Form.Group>
+            <div className='text-center'>
+              <Button
+                className="mb-5"
+                variant="primary"
+                type="submit"
+                onClick={handleSubmit}
+              >
+                Enviar
+              </Button>
+            </div>
 
-          <Button className="mb-5" variant="primary" type="submit">
-            Enviar
-          </Button>
-        </Form>
+            <h3 className='text-center mb-5'>ReporteHorarios</h3>
+          </Form>
 
-
-        <h3 className='text-center mb-5'>ReporteRol</h3>
-
-        <Table class='table-success'>
-          <th>IdRol</th>
-          <th>Nombre</th>
-          <th>Activo</th>
-          <th>Fecha Desactivado</th>
-          <tbody>
-            <tr class="table-success">
-              <td>1</td>
-              <td>Elvis Flores</td>
-              <td>True</td>
-              <td>30/08/2023  16:00:00</td>
-            </tr>
-          </tbody>
-        </Table>
-
-
-
-      </div>
-
-
-
-    </>
-  )
-}
+          <div className='text-center'>
+            <table className='table'>
+              <thead>
+                <tr>
+                  <th>IdHorario</th>
+                  <th>Hora Inicio</th>
+                  <th>Hora Finalización</th>
+                  <th>Activo</th>
+                  <th>Fecha Borrado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {horarios.map((horario) => (
+                  <tr key={horario.id_horario}>
+                    <td>{horario.id_horario}</td>
+                    <td>{horario.horainicio}</td>
+                    <td>{horario.horafinal}</td>
+                    <td>{horario.activo ? 'Activo' : 'Inactivo'}</td>
+                    <td>{horario.fecha_borrado || 'No Eliminado'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
