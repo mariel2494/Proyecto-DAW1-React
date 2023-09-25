@@ -1,5 +1,4 @@
-//Steven
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -15,7 +14,6 @@ const urlGet = 'http://localhost:3000/api/reservas';
 
 export const Reservas = () => {
   const [data, setData] = useState([]);
-
   const [laboratorio, setLaboratorio] = useState("");
   const [horainicio, setHorainicio] = useState("");
   const [usuario, setUsuario] = useState("");
@@ -26,14 +24,14 @@ export const Reservas = () => {
   const [datoUs, setDatoUs] = useState([]);
   const [validated, setValidated] = useState(false);
   const [correoLocalStorage, setCorreoLocalStorage] = useState("");
-  
+  const [mensajeReserva, setMensajeReserva] = useState(""); // Nuevo estado para el mensaje de reserva exitosa
+  const [mensajeError, setMensajeError] = useState(""); // Nuevo estado para el mensaje de error
 
   useEffect(() => {
     const correo = localStorage.getItem("correo");
     setCorreoLocalStorage(correo);
     console.log("🚀 ~ file: Reservas.jsx:34 ~ useEffect ~ correo:", correo)
   }, []);
-
 
   const handleInputLab = (e) => {
     setLaboratorio(e.target.value);
@@ -46,8 +44,6 @@ export const Reservas = () => {
   const handleInputHora = (e) => {
     setHorainicio(e.target.value);
   }
-
-  
 
   const fetchData = async () => {
     try {
@@ -84,7 +80,7 @@ export const Reservas = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ laboratorio, horainicio, usuario: correoLocalStorage, fecha }), // Usa el valor de correoLocalStorage en lugar de usuario
+          body: JSON.stringify({ laboratorio, horainicio, usuario: correoLocalStorage, fecha }),
         });
         console.log("🚀 ~ file: Reservas.jsx:90 ~ handleSubmit ~ correoLocalStorage:", correoLocalStorage)
         if (!response.ok) {
@@ -94,8 +90,10 @@ export const Reservas = () => {
         setLaboratorio("");
         setHorainicio("");
         setUsuario("");
+        setMensajeReserva("Reserva exitosa"); // Actualizar el mensaje de reserva exitosa
       } catch (error) {
         console.error(error);
+        setMensajeError("Error al realizar la reserva. Por favor, inténtalo de nuevo."); // Mostrar mensaje de error
       }
     }
     setValidated(true);
@@ -142,8 +140,8 @@ export const Reservas = () => {
             <Form.Group controlId='formUsuario'>
             <Form.Label>Usuario</Form.Label>
             <Form.Control
-              value={correoLocalStorage} // Establece el valor del campo de entrada como el estado del correo
-              disabled // Bloquea el campo de entrada
+              value={correoLocalStorage}
+              disabled
             />
           </Form.Group>
             <Form.Group controlId='formFechaIngreso'>
@@ -152,6 +150,12 @@ export const Reservas = () => {
             </Form.Group>
             <Button type="submit">Reservar</Button>
           </Form>
+          {mensajeReserva && (
+            <div className="alert alert-success mt-3">{mensajeReserva}</div>
+          )}
+          {mensajeError && (
+            <div className="alert alert-danger mt-3">{mensajeError}</div>
+          )}
         </Col>
         <Row className="col-lg-8 col-sm-12 mt-5">
           <Table className="table" striped>
