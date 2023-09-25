@@ -7,7 +7,6 @@ const Login = ({ dataSesion }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  
   const navigate = useNavigate();
   const url = "http://localhost:3000/api/login";
 
@@ -22,7 +21,7 @@ const Login = ({ dataSesion }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError('');
-    
+
     if (email.trim() === '' || password.trim() === '') {
       setError('Por favor, complete todos los campos');
       return;
@@ -33,25 +32,27 @@ const Login = ({ dataSesion }) => {
         correo: email,
         contrasenia: password
       }; 
+
       const response = await fetch(url, { 
-        
         method: "POST", 
         headers: { 
           "Content-Type": "application/json", 
         }, 
         body: JSON.stringify(bodyResponse) 
       }); 
+
       const jsonResponse = await response.json();
 
       if (response.status === 200) { 
-        console.log(jsonResponse); 
+        // Almacenar información de sesión en el localStorage
+        localStorage.setItem('id_rol', jsonResponse.user.id_rol);
+        localStorage.setItem('id_usuario', jsonResponse.user.id_usuario);
+        localStorage.setItem('correo', jsonResponse.user.correo);
+        localStorage.setItem('nombre', jsonResponse.user.nombre);
+
         dataSesion(jsonResponse.user.id_rol, jsonResponse.user.id_usuario, jsonResponse.user.correo, jsonResponse.user.nombre); 
-        
-        console.log("🚀 ~ file: Login.jsx:50 ~ handleSubmit ~ dataSesion:", dataSesion)
-        navigate('/inicio'); // Cambia '/dashboard' a la ruta que desees
+        navigate('/inicio');
       } 
-
-
     } catch (error) {
       console.error(error);
       if (error.response) {
@@ -88,7 +89,7 @@ const Login = ({ dataSesion }) => {
           </div>
           <br />
           <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
-          <Link className='link-style' to="/registrarse">Registrarse</Link>
+          <Link className='link-style' to="/usuario">Registrarse</Link>
         </form>
       </div>
     </>

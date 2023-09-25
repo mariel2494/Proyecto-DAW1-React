@@ -1,9 +1,10 @@
+import { Reservas } from "./Reservas"
 
 
 export const Inicio = () => {
   return (
     <>
-    <h1>Inicio</h1>
+    <Reservas></Reservas>
     </>
   )
 }

@@ -1,12 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
+import Button from 'react-bootstrap/esm/Button';
 
 export const Menu = () => {
+  const navigate = useNavigate();
 
- return (
+  const handleLogout = () => {
+    // Limpia localStorage y redirigir al usuario a la página de inicio de sesión
+    localStorage.clear();
+    navigate('/');
+    window.location.reload();
+  };
+
+  return (
+    <>
+    <nav className="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+ 
+</nav>
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/">Inicio</Navbar.Brand>
@@ -17,20 +30,14 @@ export const Menu = () => {
             <Nav.Link as={Link} to="/laboratorio">Laboratorio</Nav.Link>
             <Nav.Link as={Link} to="/reservas">Reservas</Nav.Link>
             <Nav.Link as={Link} to="/rol">Rol</Nav.Link>
-            <Nav.Link as={Link} to="/usuario">Usuario</Nav.Link>
+            <Nav.Link as={Link} to="/formularioUserAdmin">Usuario</Nav.Link>
+            <nav className="d-flex">
+              <Button className='btn btn-danger' onClick={handleLogout}>Cerrar Sesión</Button>
+            </nav>
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    </>
   );
 }
-{/*
-    <Link to='/'>Inicio</Link>
-    <Link to='/horarios'>Horario</Link>
-    <Link to='/laboratorio'>Laboratorios</Link>
-    <Link to='/reservas'>Reservas</Link>
-    <Link to='/rol'>Rol</Link>
-    <Link to='/usuario'>Usuario</Link> 
-  */}
-
-
