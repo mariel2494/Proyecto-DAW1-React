@@ -9,6 +9,7 @@ import Login from './componentes/Login/Login';
 import { Horarios } from './componentes/Horarios';
 import { Rol } from './componentes/Rol';
 import { FormularioUserAdmin } from './componentes/FormularioUserAdmin';
+import { ReservacionNormal } from './componentes/ReservacionNormal';
 
 function App() {
   const [inicioSesion, setInicioSesion] = useState(false);
@@ -38,7 +39,9 @@ function App() {
         {inicioSesion && id_rol === 1 && <Route path="/reservas" element={<Reservas />} />}
         {inicioSesion && id_rol === 1 && <Route path="/rol" element={<Rol />} />}
         {inicioSesion && id_rol === 1 && <Route path="/formularioUserAdmin" element={<FormularioUserAdmin />} />}
-        <Route path="/usuario" element={<Usuario />} />
+        <Route path="/registro" element={<Usuario />} />
+        {inicioSesion && id_rol === 2 &&<Route path="/reservacion" element={<ReservacionNormal />} />}
+
       </Routes>
     </>
   );
