@@ -1,10 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 
 
 export const Menu = () => {
+ 
+    const navigate = useNavigate();
+  
+    const handleLogout = () => {
+      // Realiza las acciones necesarias para cerrar la sesión, como limpiar el estado o eliminar el token de autenticación
+  
+      // Redirige al usuario a la página de inicio de sesión
+      navigate('/');
+    };
+  
   return (
     <>
 <Navbar bg="info" data-bs-theme="dark" expand="lg" className="bg-body-tertiary mb-3">
@@ -18,18 +29,13 @@ export const Menu = () => {
             <Nav.Link as={Link} to="reservas">Reservas</Nav.Link>
             <Nav.Link as={Link} to="rol">Rol</Nav.Link>
             <Nav.Link as={Link} to="usuario">Usuario</Nav.Link>
+            <Button onClick={handleLogout} variant="danger" type="submit">
+          Cerrar Sesion
+        </Button>
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
-{/*
-    <Link to='/'>Inicio</Link>
-    <Link to='/horarios'>Horario</Link>
-    <Link to='/laboratorio'>Laboratorios</Link>
-    <Link to='/reservas'>Reservas</Link>
-    <Link to='/rol'>Rol</Link>
-    <Link to='/usuario'>Usuario</Link> 
-  */}
     </>
   )
 }

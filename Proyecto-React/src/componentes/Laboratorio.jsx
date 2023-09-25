@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const Laboratorio = () => {
   const [nombre, setNombre] = useState('');
-  const [error, setError] = useState('');
+  const [, setError] = useState('');
   const url = 'http://localhost:3000/api/laboratorio';
 
   const handleNombreChange = useCallback((event) => {
