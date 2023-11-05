@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
+import Modal from 'react-bootstrap/Modal';
 
 const url = 'http://localhost:3000/api/horarios';
 const urlLab = 'http://localhost:3000/api/laboratorio';
@@ -26,6 +27,9 @@ export const Reservas = () => {
   const [correoLocalStorage, setCorreoLocalStorage] = useState("");
   const [mensajeReserva, setMensajeReserva] = useState(""); // Nuevo estado para el mensaje de reserva exitosa
   const [mensajeError, setMensajeError] = useState(""); // Nuevo estado para el mensaje de error
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     const correo = localStorage.getItem("correo");
@@ -135,11 +139,40 @@ export const Reservas = () => {
       }, []);
 
 
+      function uptdateReserva(){
+
+    let item=(laboratorio, horainicio, usuario, fecha)
+    console.warn("item", item)
+        fetch(`http://localhost:3000/api/reservas/${id_reserva}`,{
+        method:"PUT",
+       headers: {
+'Accept':'aplication/json',
+'Content-Type':'aplication/json'
+        },
+        body:JSON.stringify(item)
+
+        }).then((result)=>{
+        result.json().then((resp)=>{
+            console.warn(resp)
+            getReservas()
+        })
+            
+        })
+        getReservas("");
+        };
+    
+        useEffect(() => {
+            fetchData();
+            getReservas();
+          }, []);
+
+
 
 
   return (
     <>
-
+      <Container>
+        <Row>
       
 
           <div className="container" style={{ maxWidth: "550px", margin: "0 auto", padding: "20px" }}>
@@ -179,11 +212,13 @@ export const Reservas = () => {
               <div className="alert alert-danger mt-3">{mensajeError}</div>
             )}
 
-            <Row className="col-lg-8 col-sm-12 mt-5">
+</div >
+            <Container className="col-lg-10 col-md-12 col-sm-12">
+                <Col>
               <Table className="table" striped>
                 <thead className="table-dark">
                   <tr>
-                    <th>Laboratorio</th>
+                    <th>Laboratorio</th> 
                     <th>Hora</th>
                     <th>Usuario</th>
                     <th>Fecha</th>
@@ -198,7 +233,7 @@ export const Reservas = () => {
                       <td>{x.usuario}</td>
                       <td>{x.fecha}</td>
                       <td className="text-center">
-                        <button type="button" className="btn btn-primary">
+                        <button type="button" className="btn btn-primary" onClick={handleShow}>
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil" viewBox="0 0 16 16">
                             <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                           </svg>
@@ -215,9 +250,11 @@ export const Reservas = () => {
                   ))}
                 </tbody>
               </Table>
-            </Row>
-        
-    </div >
+              </Col>
+            </Container>
+      
+</Row>
+    </Container>
   </>
   );
 };
